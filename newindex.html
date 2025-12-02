@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ES본부 SYSTEM MAP GUIDE</title>
+  <meta name="description" content="ES본부 시스템 맵 가이드 블로그" />
+  <meta property="og:title" content="ES본부 SYSTEM MAP GUIDE" />
+  <meta property="og:description" content="ES본부 시스템 맵과 활용 가이드를 블로그 형태로 제공합니다." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#38B6FF" />
+
+  <style>
+    /* ===== 색상 테마 (소다블루) ===== */
+    :root {
+      --soda-blue: #38B6FF;           /* 메인 소다블루 */
+      --soda-blue-700: #1E90D6;       /* 진한 소다블루(호버/헤더 그림자) */
+      --soda-blue-50: #E8F7FF;        /* 아주 연한 소다블루(배경/하이라이트) */
+
+      --bg: #F5F7FA;
+      --text: #1F2937;
+      --muted: #6B7280;
+      --card: #FFFFFF;
+      --border: #E5E7EB;
+      --accent: #10B981;              /* 포인트 색(완료/추천 요소) */
+      --danger: #EF4444;              /* 경고/에러 포인트 */
+    }
+
+    /* ===== 베이스 ===== */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans KR, "Apple SD Gothic Neo", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: var(--soda-blue-700); text-decoration: none; }
+    a:hover { color: var(--soda-blue); }
+
+    /* ===== 헤더 ===== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #ffffffcc;
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo {
+      height: 40px;
+      width: auto;
+    }
+    .site-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text);
+    }
+    .nav {
+      margin-left: auto;
+      display: flex;
+      gap: 16px;
+    }
+    .nav a {
+      padding: 8px 10px;
+      font-weight: 600;
+      color: var(--text);
+      border-radius: 8px;
+    }
+    .nav a.active, .nav a:hover {
+      background: var(--soda-blue-50);
+      color: var(--soda-blue-700);
+    }
+
+    /* ===== 히어로 ===== */
+    .hero {
+      background: linear-gradient(120deg, var(--soda-blue), var(--soda-blue-700));
+      color: white;
+      padding: 48px 16px;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 24px;
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    }
+    .hero p {
+      margin: 0 0 16px;
+      color: #f0f9ff;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      border: 1px solid #ffffff55;
+      color: white;
+      background: #ffffff22;
+    }
+    .btn.primary {
+      background: white;
+      color: var(--soda-blue-700);
+      border-color: white;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px #0000001a; }
+
+    .hero-card {
+      background: #ffffff;
+      color: var(--text);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 8px 24px #0000001a;
+    }
+    .hero-card h3 { margin-top: 0; color: var(--soda-blue-700); }
+
+    /* ===== 메인 레이아웃 ===== */
+    .container {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 24px;
+    }
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .container { grid-template-columns: 1fr; }
+    }
+
+    /* ===== 카드형 블로그 ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 1200px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow .2s ease, transform .2s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px #0000001a;
+    }
+    .card-thumb {
+      aspect-ratio: 16/9;
+      background: var(--soda-blue-50);
+      display: grid;
+      place-items: center;
+      color: var(--soda-blue-700);
+      font-weight: 700;
+    }
+    .card-body {
+      padding: 14px 14px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .card-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .card-meta {
+      font-size: .85rem;
+      color: var(--muted);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      font-size: .78rem;
+      background: var(--soda-blue-50);
+      color: var(--soda-blue-700);
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid #CFEFFF;
+      cursor: pointer;
+    }
+    .card-footer {
+      margin-top: auto;
+      padding: 10px 14px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px dashed var(--border);
+    }
+    .readmore {
+      color: var(--soda-blue-700);
+      font-weight: 700;
+    }
+
+    /* ===== 사이드바 ===== */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .panel h3 {
+      margin: 0;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 1rem;
+      color: var(--soda-blue-700);
+    }
+    .panel-body { padding: 12px 14px; }
+
+    .search {
+      display: flex;
+      gap: 8px;
+    }
+    .search input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+    }
+    .search button {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--soda-blue-700);
+      background: var(--soda-blue);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .filter {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      color: var(--text);
+      background: #fff;
+    }
+    .filter.active {
+      background: var(--soda-blue-50);
+      border-color: var(--soda-blue-700);
+      color: var(--soda-blue-700);
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: .9rem;
+      color: var(--muted);
+    }
+
+    /* ===== 푸터 ===== */
+    .footer {
+      margin-top: 24px;
+      padding: 18px 16px;
+      background: white;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- 헤더: 로고 + 네비게이션 -->
+  <header class="header" aria-label="상단 헤더">
+    <div class="header-inner">
+      <!-- 로고 이미지 경로를 실제 파일로 교체하세요 -->
+      ./assets/es-logo.png
+      <span class="site-title">ES본부 SYSTEM MAP GUIDE</span>
+      <nav class="nav" aria-label="주 메뉴">
+        #홈</a>
+        #systems시스템 소개</a>
+        #guides사용 가이드</a>
+        #contact문의하기</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 히어로 -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>ES 시스템 맵을 한눈에, 업무 효율을 한층 더</h1>
+        <p>ES본부의 핵심 시스템 구조와 활용 팁을 블로그 형식으로 제공합니다. 태그/검색/필터로 원하는 콘텐츠를 빠르게 찾아보세요.</p>
+        <div class="hero-actions">
+          #latest최신 포스트 보기</a>
+          #mapSYSTEM MAP 바로가기</a>
+        </div>
+      </div>
+      <div class="hero-card" role="complementary">
+        <h3>빠른 안내</h3>
+        <ul>
+          <li>색상 테마: <strong>소다블루</strong> (커스텀 가능)</li>
+          <li>로고 교체: <code>./assets/es-logo.png</code></li>
+          <li>카드형 블로그: 검색/필터/태그 지원</li>
+          <li>반응형 레이아웃: 모바일 최적화</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 메인 -->
+  <main class="container" id="latest">
+    <!-- 블로그 카드 그리드 -->
+    <section aria-label="블로그 포스트">
+      <div class="grid" id="postGrid">
+        <!-- 카드 예시 1 -->
+        <article class="card" data-category="맵" data-tags="system-map,architecture">
+          <div class="card-thumb">SYSTEM MAP</div>
+          <div class="card-body">
+            <h2 class="card-title">ES SYSTEM MAP 개요</h2>
+            <div class="card-meta">
+              <span>2025-11-20</span>
+              <span>작성: ES 고객가치혁신팀</span>
+            </div>
+            <p>ES본부의 시스템 구성요소를 계층별로 정리하고 주요 연계 흐름을 도식화했습니다. 신규 구성원 온보딩에 최적화된 요약본 포함.</p>
+            <div class="tags">
+              <button class="tag" data-tag="system-map">#system-map</button>
+              <button class="tag" data-tag="architecture">#architecture</button>
+            </div>
+          </div>
+          <div class="card-footer">
+            #자세히 보기</a>
+            <span>읽기 시간: 6분</span>
+          </div>
+        </article>
+
+        <!-- 카드 예시 2 -->
+        <article class="card" data-category="가이드" data-tags="howto,access">
+          <div class="card-thumb">ACCESS</div>
+          <div class="card-body">
+            <h2 class="card-title">주요 시스템 접근 절차 가이드</h2>
+            <div class="card-meta">
+              <span>2025-10-02</span>
+              <span>작성: ES 고객가치혁신팀</span>
+            </div>
+            <p>권한 신청부터 VPN, SSO, 다중 인증(MFA)까지 접근 절차를 단계별로 안내합니다. 체크리스트 템플릿 제공.</p>
+            <div class="tags">
+              <button class="tag" data-tag="howto">#howto</button>
+              <button class="tag" data-tag="access">#access</button>
+            </div>
+          </div>
+          <div class="card-footer">
+            #자세히 보기</a>
+            <span>읽기 시간: 4분</span>
+          </div>
+        </article>
+
+        <!-- 카드 예시 3 -->
+        <article class="card" data-category="운영" data-tags="monitoring,alerts">
+          <div class="card-thumb">MONITOR</div>
+          <div class="card-body">
+            <h2 class="card-title">모니터링 & 알림 구성 베스트 프랙티스</h2>
+            <div class="card-meta">
+              <span>2025-09-15</span>
+              <span>작성: ES 고객가치혁신팀</span>
+            </div>
+            <p>대시보드 표준화, 알림 임계값, 장애 핸들링 플레이북 등 운영 효율을 높이는 실무 팁을 모았습니다.</p>
+            <div class="tags">
+              <button class="tag" data-tag="monitoring">#monitoring</button>
+              <button class="tag" data-tag="alerts">#alerts</button>
+            </div>
+          </div>
+          <div class="card-footer">
+            #자세히 보기</a>
+            <span>읽기 시간: 7분</span>
+          </div>
+        </article>
+
+        <!-- 카드 예시 4 -->
+        <article class="card" data-category="보안" data-tags="security,mfa,policy">
+          <div class="card-thumb">SECURITY</div>
+          <div class="card-body">
+            <h2 class="card-title">보안 정책 업데이트 (MFA 강화)</h2>
+            <div class="card-meta">
+              <span>2025-08-30</span>
+              <span>작성: ES 고객가치혁신팀</span>
+            </div>
+            <p>최근 보안 정책 변경 사항과 필수 조치 항목을 정리했습니다. 사용자별 점검 체크리스트 포함.</p>
+            <div class="tags">
+              <button class="tag" data-tag="security">#security</button>
+              <button class="tag" data-tag="mfa">#mfa</button>
+              <button class="tag" data-tag="policy">#policy</button>
+            </div>
+          </div>
+          <div class="card-footer">
+            #자세히 보기</a>
+            <span>읽기 시간: 3분</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 사이드바: 검색/필터/레전드 -->
+    <aside class="sidebar" aria-label="사이드바">
+      <div class="panel">
+        <h3>검색</h3>
+        <div class="panel-body">
+          <div class="search">
+            <input id="searchInput" type="search" placeholder="제목/내용/태그로 검색…" aria-label="검색어 입력" />
+            <button id="searchBtn">검색</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>카테고리</h3>
+        <div class="panel-body">
+          <div class="filters" id="categoryFilters">
+            <button class="filter active" data-category="all">전체</button>
+            <button class="filter" data-category="맵">맵</button>
+            <button class="filter" data-category="가이드">가이드</button>
+            <button class="filter" data-category="운영">운영</button>
+            <button class="filter" data-category="보안">보안</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>태그</h3>
+        <div class="panel-body">
+          <div class="filters" id="tagFilters">
+            <button class="filter" data-tag="system-map">system-map</button>
+            <button class="filter" data-tag="architecture">architecture</button>
+            <button class="filter" data-tag="howto">howto</button>
+            <button class="filter" data-tag="access">access</button>
+            <button class="filter" data-tag="monitoring">monitoring</button>
+            <button class="filter" data-tag="alerts">alerts</button>
+            <button class="filter" data-tag="security">security</button>
+            <button class="filter" data-tag="mfa">mfa</button>
+            <button class="filter" data-tag="policy">policy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>레전드</h3>
+        <div class="panel-body">
+          <div class="legend">
+            <div>🔷 소다블루: 인터랙션/링크</div>
+            <div>🟢 포인트: 추천/완료</div>
+            <div>🔺 경고: 정책/보안 이슈</div>
+            <div>📌 태그: 빠른 탐색</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer" id="contact">
+    &copy; 2025 ES본부. All rights reserved. · 문의: ES 고객가치혁신팀
+  </footer>
+
+  <!-- 간단한 검색/필터 스크립트 -->
+  <script>
+    const postGrid = document.getElementById('postGrid');
+    const cards = Array.from(postGrid.querySelectorAll('.card'));
+
+    // 검색
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    function applySearch() {
+      const q = (searchInput.value || '').trim().toLowerCase();
