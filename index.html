@@ -2,78 +2,50 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ES본부 SYSTEM MAP GUIDE</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f6f8;
-            color: #333;
-        }
-        header {
-            background-color: #004080;
-            color: white;
-            text-align: center;
-            padding: 20px 10px;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.2em;
-        }
-        nav {
-            background-color: #e6e6e6;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #004080;
-            font-weight: bold;
-        }
-        nav a:hover {
-            color: #0073e6;
-        }
-        main {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        main h2 {
-            color: #004080;
-            margin-bottom: 15px;
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #004080;
-            color: white;
-            margin-top: 30px;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>ES본부 SYSTEM MAP GUIDE</h1>
-    </header>
-    <nav>
-        #홈</a>
-        #시스템 소개</a>
-        #사용 가이드</a>
-        #문의하기</a>
-    </nav>
-    <main>
-        <h2>환영합니다!</h2>
-        <p>이 페이지는 ES본부의 시스템 맵과 관련된 가이드를 제공합니다. 아래 메뉴를 통해 필요한 정보를 확인하세요.</p>
-    </main>
-    <footer>
-        &copy; 2025 ES본부. All rights reserved.
-    </footer>
-</body>
-</html>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ES본부 SYSTEM MAP GUIDE</title>
+  <meta name="description" content="ES본부 시스템 맵 가이드 블로그" />
+  <meta property="og:title" content="ES본부 SYSTEM MAP GUIDE" />
+  <meta property="og:description" content="ES본부 시스템 맵과 활용 가이드를 블로그 형태로 제공합니다." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#38B6FF" />
+
+  <style>
+    /* ===== 색상 테마 (소다블루) ===== */
+    :root {
+      --soda-blue: #38B6FF;           /* 메인 소다블루 */
+      --soda-blue-700: #1E90D6;       /* 진한 소다블루(호버/헤더 그림자) */
+      --soda-blue-50: #E8F7FF;        /* 아주 연한 소다블루(배경/하이라이트) */
+
+      --bg: #F5F7FA;
+      --text: #1F2937;
+      --muted: #6B7280;
+      --card: #FFFFFF;
+      --border: #E5E7EB;
+      --accent: #10B981;              /* 포인트 색(완료/추천 요소) */
+      --danger: #EF4444;              /* 경고/에러 포인트 */
+    }
+
+    /* ===== 베이스 ===== */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans KR, "Apple SD Gothic Neo", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: var(--soda-blue-700); text-decoration: none; }
+    a:hover { color: var(--soda-blue); }
+
+    /* ===== 헤더 ===== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #ffffffcc;
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
